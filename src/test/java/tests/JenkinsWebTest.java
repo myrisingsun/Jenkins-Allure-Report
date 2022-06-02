@@ -1,34 +1,37 @@
+package tests;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.Attachment;
+
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static org.openqa.selenium.By.linkText;
 import static org.openqa.selenium.By.partialLinkText;
 
-public class JenkinsWebTest {
+public class JenkinsWebTest extends TestBase {
 
 
     String TestAddress = "eroshenkoam/allure-example";
     //String TestAddress = "myrisingsun/demoqa_test";
 
-    @BeforeAll
-    static void setUp (){
-        Configuration.holdBrowserOpen = true;
-        Configuration.browserSize = "1920x1080";
-        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub/";
-    }
+
 
 @Test
     public void webTestExample(){
-    // добавление функционала по отражению в отчете сценария теста
-    SelenideLogger.addListener("allure", new AllureSelenide());
+
     // документация  по selenide - https://ru.selenide.org/documentation.html
     // открываем страницу https://github.com/
     open("https://github.com/");
@@ -46,7 +49,5 @@ public class JenkinsWebTest {
     $(withText("#76")).should(Condition.visible);
 
     }
-
-
 
 }
